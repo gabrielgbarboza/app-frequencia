@@ -1,0 +1,67 @@
+$univali-blue: #003580;
+$univali-bg: #f4f5f8;
+
+// Fundo da página e ajuste de padding
+ion-content {
+  --background: #{$univali-bg};
+  --padding-top: 15px;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+
+// Estilo dos ITENS (Cards da Turma)
+ion-item {
+  --background: white;
+  --border-radius: 12px; // Cards arredondados
+  --padding-start: 15px;
+  --inner-padding-end: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); // Sombra leve
+  border-left: 5px solid $univali-blue; // Faixa lateral da cor principal
+  transition: transform 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    background: #f9f9f9;
+  }
+
+  &:active {
+    transform: scale(0.99); // Efeito de clique
+  }
+
+  // Estilo do LABEL que contém o conteúdo
+  ion-label {
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #333;
+      margin: 0 0 4px 0;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+    }
+  }
+
+  // Remove as linhas de separação internas que Ionic adiciona por padrão
+  --border-width: 0 !important;
+}
+
+// Estilo para a Toolbar (Cabeçalho)
+ion-toolbar {
+  --background: #{$univali-blue};
+  --color: white;
+
+  ion-title {
+    font-weight: 600;
+  }
+}
+
+.toolbar-container {
+  --background: #{$univali-blue};
+}

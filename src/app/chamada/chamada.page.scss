@@ -1,0 +1,213 @@
+// Cores Univali e Status
+$univali-blue: #003580;
+$univali-bg: #f4f5f8;
+$status-presente: #28a745; // Verde
+$status-falta: #dc3545; // Vermelho
+$status-justificada: #6f42c1; // Roxo
+
+// Ajuste da Toolbar (Cabeçalho)
+ion-toolbar {
+  --background: #{$univali-blue};
+  --color: white;
+
+  ion-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+}
+
+// Fundo da página
+ion-content {
+  --background: #{$univali-bg};
+}
+
+// Container dos formulários
+.form-section {
+  background: white;
+  padding: 20px;
+  margin: 15px;
+  border-radius: 12px; // Borda arredondada
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  .input-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+    }
+
+    .simple-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px; // Borda arredondada nos inputs
+      background: #f9f9f9;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+      color: #333;
+
+      &:focus {
+        outline: none;
+        border-color: $univali-blue;
+        background: white;
+      }
+    }
+  }
+}
+
+// Seletor de Aulas
+.aulas-selector {
+  margin-top: 10px;
+  label {
+    font-weight: 700;
+    color: #333;
+  }
+
+  .buttons-row {
+    display: flex;
+    gap: 10px; // Espaço entre botões
+    margin-top: 10px;
+  }
+
+  .aula-btn {
+    flex: 1;
+    padding: 12px 0;
+    text-align: center;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #666;
+    border-radius: 8px; // Borda arredondada
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.active {
+      border-color: $univali-blue;
+      background: $univali-blue;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 53, 128, 0.3);
+    }
+  }
+}
+
+// Legenda
+.legenda {
+  padding: 0 20px;
+  display: flex;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+
+  .badge {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%; // Bolinha
+    margin-right: 6px;
+  }
+  .present {
+    background: $status-presente;
+  }
+  .absent {
+    background: $status-falta;
+  }
+  .justified {
+    background: $status-justificada;
+  }
+}
+
+// Lista de Alunos
+.lista-alunos {
+  padding: 0 15px 50px 15px; // Espaço extra no final
+
+  .aluno-card {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: white;
+    border-radius: 12px; // Card arredondado
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    border-left: 6px solid transparent; // Faixa lateral colorida
+    transition: transform 0.1s;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    // Avatar
+    .avatar {
+      width: 48px;
+      height: 48px;
+      background: #eee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      color: #888;
+      font-size: 1.5rem;
+    }
+
+    // Informações
+    .info {
+      flex: 1;
+      h3 {
+        margin: 0 0 4px 0;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #333;
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    // Estilos Dinâmicos baseados no Status
+    &.status-presente {
+      border-left-color: $status-presente;
+      .status-badge {
+        background: rgba($status-presente, 0.1);
+        color: $status-presente;
+      }
+    }
+    &.status-falta {
+      border-left-color: $status-falta;
+      .status-badge {
+        background: rgba($status-falta, 0.1);
+        color: $status-falta;
+      }
+    }
+    &.status-justificada {
+      border-left-color: $status-justificada;
+      .status-badge {
+        background: rgba($status-justificada, 0.1);
+        color: $status-justificada;
+      }
+    }
+  }
+}
+
+.ion-padding {
+  padding-bottom: 60px;
+}
+
+.button-inner {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+}

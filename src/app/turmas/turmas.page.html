@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Minhas Turmas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-item *ngFor="let turma of listaTurmas" button detail="true" (click)="abrirChamada(turma)">
+    <ion-label>
+      <h2>{{ turma.nome }}</h2>
+      <p>{{ turma.horario }}</p>
+    </ion-label>
+  </ion-item>
+
+</ion-content>

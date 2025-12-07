@@ -10,4 +10,14 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'turmas',
+    loadComponent: () =>
+      import('./turmas/turmas.page').then((m) => m.TurmasPage),
+  },
+  {
+    path: 'chamada/:id',
+    loadComponent: () =>
+      import('./chamada/chamada.page').then((m) => m.ChamadaPage),
+  },
 ];

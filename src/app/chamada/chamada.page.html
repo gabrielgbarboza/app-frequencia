@@ -1,0 +1,66 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ turmaAtual?.nome || 'Chamada' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="form-section">
+    <div class="input-group">
+      <label>Data</label>
+      <input type="date" [(ngModel)]="dataHoje" class="simple-input">
+    </div>
+
+    <div class="input-group">
+      <label>Conteúdo da Aula</label>
+      <textarea rows="2" [(ngModel)]="conteudoAula" class="simple-input" placeholder="Digite o conteúdo aqui..."></textarea>
+    </div>
+
+    <div class="input-group">
+      <label>Observações</label>
+      <textarea rows="1" class="simple-input" placeholder="Opcional"></textarea>
+    </div>
+
+    <div class="aulas-selector">
+      <label>Aulas: {{ qtdAulas }}</label>
+      <div class="buttons-row">
+        <div *ngFor="let n of [1,2,3,4,5]" class="aula-btn" [class.active]="qtdAulas === n" (click)="setAulas(n)">
+          {{ n }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="legenda">
+    <div><span class="badge present"></span> Presente</div>
+    <div><span class="badge absent"></span> Falta</div>
+    <div><span class="badge justified"></span> Justificada</div>
+  </div>
+
+  <div class="lista-alunos">
+    <div *ngFor="let aluno of listaAlunos" class="aluno-card" [ngClass]="'status-' + aluno.status" (click)="alternarStatus(aluno)">
+
+      <div class="avatar">
+        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </div>
+
+      <div class="info">
+        <h3>{{ aluno.nome }}</h3>
+        <div class="status-badge">
+          {{ getTextoStatus(aluno.status) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ion-padding">
+    <!-- Botão de Enviar Chamada -->
+    <ion-button id="enviar" expand="block" (click)="enviarChamada()" color="tertiary" style="--border-radius: 8px;">
+      ENVIAR CHAMADA
+    </ion-button>
+  </div>
+</ion-content>
