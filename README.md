@@ -2,7 +2,7 @@
 
 > Projeto de Desenvolvimento Mobile Orientado a Testes (TDD) para Registro de Frequência Docente.
 
-O **Chamada Fácil** é um aplicativo móvel simplificado, desenvolvido como parte da disciplina "Hands on Work VIII" da Universidade do Vale do Itajaí (Univali). O objetivo é otimizar o tempo do professor em sala de aula, eliminando o retrabalho e a transcrição manual de listas de presença.
+O **Chamada Fácil** é um aplicativo móvel simplificado, desenvolvido como parte da disciplina "Hands on Work IX" da Universidade do Vale do Itajaí (Univali). O objetivo é otimizar o tempo do professor em sala de aula, eliminando o retrabalho e a transcrição manual de listas de presença.
 
 ## 👥 Autores
 * **Gabriel Goulart Barboza**
