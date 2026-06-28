@@ -61,33 +61,45 @@ export class ChamadaPage implements OnInit {
     private route: ActivatedRoute,
     private dadosService: DadosService,
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
   ) {
     addIcons({ alertCircleOutline, person });
   }
 
   ngOnInit() {
-    // Lógica para obter o ID de forma síncrona
     const idRota = this.route.snapshot.paramMap.get('id');
 
     if (idRota) {
-      this.turmaId = Number(idRota); // Atribui o ID
-      this.listaAlunos = this.dadosService.getAlunos(this.turmaId);
-      this.turmaAtual = this.dadosService
-        .getTurmas()
-        .find((t) => t.id === this.turmaId);
+      this.turmaId = Number(idRota);
+
+      // 1. Busca os alunos da API
+      this.dadosService.getAlunos(this.turmaId).subscribe({
+        next: (dados) => {
+          this.listaAlunos = dados;
+        },
+        error: (erro) => {
+          console.error('Erro ao buscar alunos', erro);
+        },
+      });
+
+      // 2. Busca o nome da turma para exibir no cabeçalho
+      this.dadosService.getTurmas().subscribe((turmas) => {
+        this.turmaAtual = turmas.find((t) => t.id === this.turmaId);
+      });
     }
   }
 
   // Função para ciclar os status ao clicar no aluno
+  // Função para ciclar os status ao clicar no aluno
   alternarStatus(aluno: Aluno) {
-    let novoStatus: StatusPresenca = 'presente';
-
-    if (aluno.status === 'presente') novoStatus = 'falta';
-    else if (aluno.status === 'falta') novoStatus = 'justificada';
-    else if (aluno.status === 'justificada') novoStatus = 'presente';
-
-    this.dadosService.atualizarStatus(aluno.id, novoStatus);
+    // Altera o status DIRETAMENTE no objeto do aluno que está na tela
+    if (aluno.status === 'presente') {
+      aluno.status = 'falta';
+    } else if (aluno.status === 'falta') {
+      aluno.status = 'justificada';
+    } else if (aluno.status === 'justificada') {
+      aluno.status = 'presente';
+    }
   }
 
   setAulas(qtd: number) {
@@ -107,8 +119,9 @@ export class ChamadaPage implements OnInit {
   async enviarChamada() {
     const data = this.dataHoje;
     const conteudo = this.conteudoAula;
-    // O ID AGORA ESTÁ GARANTIDO VIA PROPRIEDADE DA CLASSE
     const id = this.turmaId;
+    const qtdAulas = this.qtdAulas;
+    const alunos = this.listaAlunos; // Passamos a lista de alunos com seus status atuais
 
     if (id === 0) {
       const toast = await this.toastController.create({
@@ -132,26 +145,40 @@ export class ChamadaPage implements OnInit {
       return;
     }
 
-    // Chama a função testada (enviarChamada)
-    const sucesso = this.dadosService.enviarChamada(id, data, conteudo);
-
-    if (sucesso) {
-      const toast = await this.toastController.create({
-        message: 'Chamada enviada com sucesso!',
-        duration: 2000,
-        color: 'success',
-        position: 'bottom',
+    // Agora usamos o .subscribe() para aguardar o banco de dados
+    this.dadosService
+      .enviarChamada(id, data, conteudo, qtdAulas, alunos)
+      .subscribe({
+        next: async (resposta) => {
+          if (resposta.sucesso) {
+            const toast = await this.toastController.create({
+              message: 'Chamada enviada e salva no banco de dados!',
+              duration: 2000,
+              color: 'success',
+              position: 'bottom',
+            });
+            toast.present();
+            this.router.navigate(['/turmas']); // Volta para as turmas após o sucesso
+          } else {
+            const toast = await this.toastController.create({
+              message: resposta.mensagem || 'Falha no envio da chamada.',
+              duration: 3000,
+              color: 'danger',
+              position: 'bottom',
+            });
+            toast.present();
+          }
+        },
+        error: async (erro) => {
+          console.error('Erro de rede: ', erro);
+          const toast = await this.toastController.create({
+            message: 'Erro ao conectar com o servidor local.',
+            duration: 3000,
+            color: 'danger',
+            position: 'bottom',
+          });
+          toast.present();
+        },
       });
-      toast.present();
-      this.router.navigate(['/turmas']);
-    } else {
-      const toast = await this.toastController.create({
-        message: 'Falha no envio da chamada. Tente novamente.',
-        duration: 3000,
-        color: 'danger',
-        position: 'bottom',
-      });
-      toast.present();
-    }
   }
 }

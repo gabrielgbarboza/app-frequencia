@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; // Importar Router
+import { Router } from '@angular/router';
 import {
   IonHeader,
   IonToolbar,
@@ -37,14 +37,23 @@ import { DadosService, Turma } from '../services/dados';
 export class TurmasPage implements OnInit {
   listaTurmas: Turma[] = [];
 
-  // Injetar Router
-  constructor(private dadosService: DadosService, private router: Router) {}
+  constructor(
+    private dadosService: DadosService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
-    this.listaTurmas = this.dadosService.getTurmas();
+    // Escuta a resposta da API e preenche a lista
+    this.dadosService.getTurmas().subscribe({
+      next: (dados) => {
+        this.listaTurmas = dados;
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar turmas', erro);
+      },
+    });
   }
 
-  // Função para navegar passando o ID
   abrirChamada(turma: Turma) {
     this.router.navigate(['/chamada', turma.id]);
   }

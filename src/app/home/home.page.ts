@@ -51,19 +51,27 @@ export class HomePage {
   mensagem: string = '';
 
   // Injetamos o Router aqui
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {
     addIcons({ checkmarkDoneCircleOutline, schoolOutline, alertCircleOutline });
   }
 
   fazerLogin() {
-    const autorizado = this.authService.login(this.usuario, this.chave);
-
-    if (autorizado) {
-      this.mensagem = '';
-      // Esta linha faz a mágica da navegação
-      this.router.navigate(['/turmas']);
-    } else {
-      this.mensagem = 'Usuário ou senha incorretos.';
-    }
+    this.authService.login(this.usuario, this.chave).subscribe({
+      next: (resposta) => {
+        if (resposta.sucesso) {
+          this.mensagem = '';
+          this.router.navigate(['/turmas']);
+        } else {
+          this.mensagem = resposta.mensagem || 'Usuário ou senha incorretos.';
+        }
+      },
+      error: (erro) => {
+        console.error('Erro na requisição', erro);
+        this.mensagem = 'Erro ao conectar com o servidor local.';
+      },
+    });
   }
 }
