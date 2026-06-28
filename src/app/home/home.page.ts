@@ -69,6 +69,7 @@ export class HomePage {
         }
       },
       error: (erro) => {
+        alert('ERRO DETALHADO: ' + JSON.stringify(erro));
         console.error('Erro na requisição', erro);
         this.mensagem = 'Erro ao conectar com o servidor local.';
       },
