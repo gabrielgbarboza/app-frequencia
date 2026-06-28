@@ -8,7 +8,7 @@
 
 > Projeto de Desenvolvimento Mobile para Registro de Frequência Docente com integração em tempo real.
 
-O **Chamada Fácil** é um sistema multiplataforma desenvolvido como parte da disciplina "Hands on Work IX" da Universidade do Vale do Itajaí (Univali). O objetivo é otimizar o tempo do professor em sala de aula, eliminando o retrabalho e a transcrição manual de listas de presença, conectando diretamente a sala de aula à secretaria.
+O **Chamada Fácil** é um sistema multiplataforma desenvolvido como parte da disciplina Hands on Work da Universidade do Vale do Itajaí (Univali). O objetivo é otimizar o tempo do professor em sala de aula, eliminando o retrabalho e a transcrição manual de listas de presença, conectando diretamente a sala de aula à secretaria.
 
 ## 👥 Autores
 * **Gabriel Goulart Barboza** - [LinkedIn](https://www.linkedin.com/in/gabrielgbarboza/)
