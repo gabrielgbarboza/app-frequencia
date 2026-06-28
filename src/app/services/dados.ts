@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Turma {
   id: number;
@@ -21,7 +22,7 @@ export interface Aluno {
   providedIn: 'root',
 })
 export class DadosService {
-  private apiUrl = 'http://192.168.15.88/chamada-facil-api';
+  private apiUrl = 'enviroment.apiUrl';
 
   constructor(private http: HttpClient) {}
 
